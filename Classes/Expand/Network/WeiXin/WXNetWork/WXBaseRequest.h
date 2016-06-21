@@ -58,7 +58,16 @@ typedef void(^WXRequestCompletionBlock)(__kindof WXBaseRequest *request);
 @end
 
 @interface WXBaseRequest : NSObject
+@property (nonatomic, copy) NSString *interfaceURL;
+@property (nonatomic, copy) NSString *interfaceUserInfo;
+//@property (nonatomic, copy) RequestFailureBlock failure;
 
+- (NSString *)interface;
+- (NSDictionary *)makeParameters;
+
+- (void)handleResponse:(id)responseObject;
+- (void)handleError:(NSError *)error;
+- (void)onResponse:(NSDictionary *)json;
 /// Tag
 @property (nonatomic) NSInteger tag;
 

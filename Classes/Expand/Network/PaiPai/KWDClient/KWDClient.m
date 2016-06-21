@@ -178,7 +178,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [request handleError:error];
     }];
-    
+    request.sessionDataTask = dataTask;
     // Debug
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:&error];
@@ -199,7 +199,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [request handleError:error];
     }];
-    
+    request.sessionDataTask = dataTask;
     // Debug
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:&error];
@@ -220,8 +220,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [request handleError:error];
     }];
-
-    
+    request.sessionDataTask = dataTask;
     // Debug
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:&error];
@@ -242,7 +241,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [request handleError:error];
     }];
-    
+    request.sessionDataTask = dataTask;
     // Debug
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:&error];
@@ -263,7 +262,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [request handleError:error];
     }];
-    
+    request.sessionDataTask = dataTask;
     // Debug
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:&error];
@@ -285,7 +284,7 @@
         [request handleError:error];
     }];
     
-    request.
+    request.sessionDataTask = dataTask;
     // Debug
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:&error];
