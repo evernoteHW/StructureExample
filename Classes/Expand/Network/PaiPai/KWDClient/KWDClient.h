@@ -18,5 +18,9 @@
 
 - (NSURLSessionDataTask *)startRequest:(HTTPRequest *)request;
 
+- (void)addRequest:(HTTPRequest *)request;
 
+- (void)cancelRequest:(HTTPRequest *)request;
+
+- (void)cancelAllRequests;
 @end

@@ -18,6 +18,7 @@
 
 - (NSString *)interface;
 - (NSDictionary *)makeParameters;
+
 - (void)handleResponse:(id)responseObject;
 - (void)handleError:(NSError *)error;
 - (void)onResponse:(NSDictionary *)json;

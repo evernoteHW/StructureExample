@@ -9,5 +9,4 @@
 #ifndef NetworkPublicHeader_h
 #define NetworkPublicHeader_h
 
-
 #endif /* NetworkPublicHeader_h */

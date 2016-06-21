@@ -9,12 +9,13 @@
 #import "KWDClient.h"
 #import "AFNetworking.h"
 #import "AppDelegate.h"
-#import "HTTPRequest.h"
+#import "WXBaseRequest.h"
 #import "RequestDefine.h"
+#import "WXBaseRequest.h"
 
-
-@interface KWDClient ()
-
+@interface KWDClient (){
+    NSMutableDictionary *_requestsRecordDictionaryM;
+}
 @property (nonatomic, strong) AFHTTPSessionManager *gbkManager;
 @property (nonatomic, strong) AFHTTPSessionManager *utf8Manager;
 @property (nonatomic, strong) AFHTTPSessionManager *jsonManager;
@@ -38,11 +39,22 @@
 {
     if (self = [super init]) {
         _wdBaseURL = kWDInterfaceBaseURL;
+        _requestsRecordDictionaryM = [NSMutableDictionary dictionary]
+        ;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     
     return self;
+}
+- (void)addRequest:(WXBaseRequest *)request{
+
+}
+- (void)cancelRequest:(WXBaseRequest *)request{
+
+}
+- (void)cancelAllRequests{
+    
 }
 
 - (void)dealloc
@@ -156,7 +168,7 @@
 #pragma mark -
 #pragma mark - Start Request
 
-- (NSURLSessionDataTask *)startRequest:(HTTPRequest *)request
+- (NSURLSessionDataTask *)startRequest:(WXBaseRequest *)request
 {
     NSDictionary *params = [self makeParameters:[request makeParameters]];
     NSURLSessionDataTask *dataTask = [[self utf8Manager] POST:request.interface parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -176,7 +188,7 @@
     return dataTask;
 }
 
-- (NSURLSessionDataTask *)startGetRequest:(HTTPRequest *)request
+- (NSURLSessionDataTask *)startGetRequest:(WXBaseRequest *)request
 {
     NSDictionary *params = [self makeParameters:[request makeParameters]];
     
@@ -197,7 +209,7 @@
     return dataTask;
 }
 
-- (NSURLSessionDataTask *)startGBKRequest:(HTTPRequest *)request
+- (NSURLSessionDataTask *)startGBKRequest:(WXBaseRequest *)request
 {
     NSDictionary *params = [self makeParameters:[request makeParameters]];
     
@@ -219,7 +231,7 @@
     return dataTask;
 }
 
-- (NSURLSessionDataTask *)startGBKGetRequest:(HTTPRequest *)request
+- (NSURLSessionDataTask *)startGBKGetRequest:(WXBaseRequest *)request
 {
     NSDictionary *params = [self makeParameters:[request makeParameters]];
     
@@ -240,7 +252,7 @@
     return dataTask;
 }
 
-- (NSURLSessionDataTask *)startJSONRequest:(HTTPRequest *)request
+- (NSURLSessionDataTask *)startJSONRequest:(WXBaseRequest *)request
 {
     NSDictionary *params = [self makeParameters:[request makeParameters]];
     
@@ -261,7 +273,7 @@
     return dataTask;
 }
 
-- (NSURLSessionDataTask *)startGetJSONRequest:(HTTPRequest *)request
+- (NSURLSessionDataTask *)startGetJSONRequest:(WXBaseRequest *)request
 {
     NSDictionary *params = [self makeParameters:[request makeParameters]];
     
@@ -273,7 +285,7 @@
         [request handleError:error];
     }];
     
-    
+    request.
     // Debug
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:&error];
@@ -282,6 +294,28 @@
     
     return dataTask;
 }
+
+- (NSString *)requestHashKey:(NSURLSessionDataTask *)sessionDataTask {
+    NSString *key = [NSString stringWithFormat:@"%lu", (unsigned long)[sessionDataTask hash]];
+    return key;
+}
+
+- (void)addSessionDataTask:(WXBaseRequest *)request {
+    if (request.sessionDataTask != nil) {
+        NSString *key = [self requestHashKey:request.sessionDataTask];
+        @synchronized(self) {
+            _requestsRecordDictionaryM[key] = request;
+        }
+    }
+}
+- (void)removeSessionDataTask:(WXBaseRequest *)request {
+    NSString *key = [self requestHashKey:request.sessionDataTask];
+    @synchronized(self) {
+        [_requestsRecordDictionaryM removeObjectForKey:key];
+    }
+    NSLog(@"Request queue size = %lu", (unsigned long)[_requestsRecordDictionaryM count]);
+}
+
 
 
 @end
