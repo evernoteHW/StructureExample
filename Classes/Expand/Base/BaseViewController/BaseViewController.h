@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  BaseViewController.h
 //  StructureExample
 //
 //  Created by WeiHu on 6/21/16.
@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
-@interface ViewController : UIViewController
-
+@interface BaseViewController : UIViewController
 
 @end
-
