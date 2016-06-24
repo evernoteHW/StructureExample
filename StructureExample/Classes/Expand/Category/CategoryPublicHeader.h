@@ -3,7 +3,7 @@
 //  SUIMVVMDemo
 //
 //  Created by yuantao on 16/3/6.
-//  Copyright © 2016年 lovemo. All rights reserved.
+//  Copyright © 2016年 WeiHu. All rights reserved.
 //
 
 #ifndef CategoryPublicHeader_h

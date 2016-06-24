@@ -16,7 +16,7 @@
 ////////////////////////////////////////////////////////////////////////////////////
 //请求 AFNetworking 参数配置
 - (NSString *)requestUrl {
-    return @"";
+    return @"http://www.weather.com.cn/data/sk/101010100.html";
 }
 
 - (NSString *)baseUrl {

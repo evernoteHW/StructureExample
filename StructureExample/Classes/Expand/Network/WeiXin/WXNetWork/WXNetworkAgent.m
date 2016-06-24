@@ -37,7 +37,7 @@
 {
     NSDictionary *params = [request makeParameters];
     
-    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@""]];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:request.baseUrl]];
     NSStringEncoding charsetEncoding = NSUTF8StringEncoding;
     manager.responseSerializer.acceptableContentTypes = [request acceptableContentTypes];
     manager.responseSerializer.stringEncoding = charsetEncoding;
@@ -56,7 +56,7 @@
     switch (request.requestMethod) {
     //GET
         case WXRequestMethodGet:{
-            dataTask = [manager GET:request.interfaceURL parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            dataTask = [manager GET:request.requestUrl parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 WXNetworkAgent *strongSelf = weakSelf;
                 [strongSelf handleSuccessResult:task responseObject:responseObject];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -67,7 +67,7 @@
             break;
     //POST
         case WXRequestMethodPost:{
-            dataTask = [manager POST:request.interfaceURL parameters:params
+            dataTask = [manager POST:request.requestUrl parameters:params
                                       progress:nil
                                        success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                                            WXNetworkAgent *strongSelf = weakSelf;
@@ -89,7 +89,7 @@
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:&error];
     NSString *paramsString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    DLog(@"Get %@ URL = %@: param = %@", NSStringFromClass([request class]), [request interfaceURL], paramsString);
+    DLog(@"Get %@ URL = %@: param = %@", NSStringFromClass([request class]), [request requestUrl], paramsString);
   
 }
 

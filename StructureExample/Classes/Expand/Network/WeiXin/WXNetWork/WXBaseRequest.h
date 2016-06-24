@@ -51,7 +51,7 @@ typedef void(^WXRequestFailuredBlock)(__kindof WXBaseRequest *request,NSError *e
 
 
 @interface WXBaseRequest : NSObject
-@property (nonatomic, copy) NSString *interfaceURL;
+
 @property (nonatomic, copy) NSString *interfaceUserInfo;
 
 @property (nonatomic, strong) NSSet *acceptableContentTypes;

@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ConstantPublicHeader.h"
+#import "WXBaseViewModel.h"
 
 
 @interface ViewController ()
@@ -19,6 +20,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    WXBaseViewModel *viewModel = [[WXBaseViewModel alloc] init];
+    
+    [viewModel startWithCompletionBlockWithSuccess:^(__kindof WXBaseRequest *request, id responseObject) {
+        
+        
+    } failure:^(__kindof WXBaseRequest *request, id responseObject) {
+        
+    }];
+    
+//    NSOperationQueue
 }
 
 - (void)didReceiveMemoryWarning {

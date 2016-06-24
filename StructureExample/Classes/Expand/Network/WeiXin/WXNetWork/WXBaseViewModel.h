@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WXBaseRequest.h"
 
-@interface WXBaseViewModel : NSObject
+@interface WXBaseViewModel : WXBaseRequest
 
 @end
